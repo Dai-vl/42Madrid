@@ -47,12 +47,14 @@ ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: OK | ex0
 ## BSQ
 KO
 
-## RUSH00
+## RUSH
+
+### RUSH00
 116
 
-## RUSH01
+### RUSH01
 Falta dar error cuando meten más de 16 números
 
-## RUSH02
+### RUSH02
 107
 
