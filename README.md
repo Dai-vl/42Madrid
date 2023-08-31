@@ -2,9 +2,11 @@
 42 Madrid things
 
 ## SHELL
-SHELL00 : ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: KO | ex07: OK | ex08: KO | ex09: KO
+### SHELL00
+ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: KO | ex07: OK | ex08: KO | ex09: KO
 
-SHELL01 : ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: Nothing turned in | ex07: Nothing turned in | ex08: Nothing turned in
+### SHELL01
+ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: Nothing turned in | ex07: Nothing turned in | ex08: Nothing turned in
 
 ## C
 ### C00
@@ -41,3 +43,16 @@ ex00: OK | ex01: OK | ex02: OK
 
 ### C11
 ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: OK | ex07: OK
+
+## BSQ
+KO
+
+## RUSH00
+116
+
+## RUSH01
+Falta dar error cuando meten más de 16 números
+
+## RUSH02
+107
+
