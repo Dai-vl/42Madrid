@@ -45,7 +45,7 @@ ex00: OK | ex01: OK | ex02: OK
 ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: OK | ex07: OK
 
 ## BSQ
-KO
+basic_tests: Standard input KO | functional_tests: Test 1 KO
 
 ## RUSH
 
