@@ -6,46 +6,35 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:53:41 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/07 13:50:20 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:12:07 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_strlen(char *str)
-{
-	int		num;
+#include "libft.h"
 
-	num = 0;
-	while (*str != '\0')
-	{
-		++num;
-		++str;
-	}
-	return (num);
-}
-
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	src_size;
-	unsigned int	dest_size;
+	size_t	i;
+	size_t	j;
+	size_t	src_size;
+	size_t	dest_size;
 
 	j = 0;
 	src_size = ft_strlen(src);
-	while (dest[j] != '\0')
+	while (dst[j] != '\0')
 	{
 		++j;
 	}
-	if (size == 0 || size <= j)
-		return (src_size + size);
+	if (dstsize == 0 || dstsize <= j)
+		return (src_size + dstsize);
 	dest_size = j;
 	i = 0;
-	while (src[i] != '\0' && i < size - dest_size - 1)
+	while (src[i] != '\0' && i < dstsize - dest_size - 1)
 	{
-		dest[j] = src[i];
+		dst[j] = src[i];
 		++j;
 		++i;
 	}
-	dest[j] = '\0';
+	dst[j] = '\0';
 	return (src_size + dest_size);
 }

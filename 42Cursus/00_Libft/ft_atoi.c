@@ -6,11 +6,13 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:55:28 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/07 14:06:14 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:13:31 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(char *str)
+#include "libft.h"
+
+int	atoi(const char *str)
 {
 	int		num;
 	int		pos;

@@ -6,19 +6,21 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:07:59 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/08/11 14:08:10 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:14:16 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
+#include "libft.h"
+
+size_t	ft_strlen(const char *s)
 {
-	int		num;
+	size_t	num;
 
 	num = 0;
-	while (*str != '\0')
+	while (*s != '\0')
 	{
 		++num;
-		++str;
+		++s;
 	}
 	return (num);
 }

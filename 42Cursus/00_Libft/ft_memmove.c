@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 19:27:25 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:16:58 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/12 18:45:30 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/09/12 19:14:01 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*p2;
-	int		i;
-	size_t	size_src;
+	size_t	i;
+	void	*or;
 
-	i = 0;
-	size_src = 0;
-	p2 = dst;
-	if (dstsize > 0)
+	or = dst;
+	if (dst < src)
 	{
-		while (src[i] != '\0' && size_src < dstsize - 1)
+		i = 0;
+		while (i < len)
 		{
-			*p2 = src[i];
-			++p2;
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 			++i;
-			++size_src;
 		}
 	}
-	*p2 = '\0';
-	while (src[i] != '\0')
+	else if (dst > src)
 	{
-		++size_src;
-		++i;
+		i = len - 1;
+		while (i >= 0)
+		{
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			--i;
+		}
 	}
-	return (size_src);
+	return (or);
 }

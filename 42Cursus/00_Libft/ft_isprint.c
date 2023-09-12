@@ -6,17 +6,13 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:52:47 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/07 13:52:48 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:13:50 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(char *str)
+#include "libft.h"
+
+int	ft_isprint(int c)
 {
-	while (*str != '\0')
-	{
-		if (*str < 32 || *str > 126)
-			return (0);
-		++str;
-	}
-	return (1);
+	return (c >= 32 && c <= 126);
 }

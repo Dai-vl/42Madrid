@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 19:27:25 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:16:58 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/12 19:05:15 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/09/12 21:19:26 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*p2;
-	int		i;
-	size_t	size_src;
+	size_t	i;
 
 	i = 0;
-	size_src = 0;
-	p2 = dst;
-	if (dstsize > 0)
+	while (((unsigned char *)s)[i] && i < n)
 	{
-		while (src[i] != '\0' && size_src < dstsize - 1)
-		{
-			*p2 = src[i];
-			++p2;
-			++i;
-			++size_src;
-		}
-	}
-	*p2 = '\0';
-	while (src[i] != '\0')
-	{
-		++size_src;
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return ((char *) &s[i]);
 		++i;
 	}
-	return (size_src);
+	if (((unsigned char *)s)[i] == '\0')
+		return ((char *) &s[i]);
+	return (0);
 }

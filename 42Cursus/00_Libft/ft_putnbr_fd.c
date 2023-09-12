@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 19:27:25 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:16:58 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/12 20:49:40 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/09/12 20:50:57 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*p2;
-	int		i;
-	size_t	size_src;
+	char	aux;
 
-	i = 0;
-	size_src = 0;
-	p2 = dst;
-	if (dstsize > 0)
+	if (n == -2147483648)
 	{
-		while (src[i] != '\0' && size_src < dstsize - 1)
-		{
-			*p2 = src[i];
-			++p2;
-			++i;
-			++size_src;
-		}
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	*p2 = '\0';
-	while (src[i] != '\0')
+	if (n < 0)
 	{
-		++size_src;
-		++i;
+		write(fd, "-", 1);
+		n = -n;
 	}
-	return (size_src);
+	if (n < 10)
+	{
+		aux = n + '0';
+		write(fd, &aux, 1);
+		return ;
+	}
+	aux = n % 10 + '0';
+	ft_putnbr_fd(n / 10, fd);
+	write(fd, &aux, 1);
 }

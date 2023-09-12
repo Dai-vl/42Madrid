@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 19:27:25 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:16:58 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/12 19:58:29 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/09/12 20:07:55 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*p2;
-	int		i;
-	size_t	size_src;
+	char	*ret;
+	size_t	i;
 
+	if (start >= ft_strlen(s))
+		return(ft_strdup(""));
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	ret = malloc((len + 1) * sizeof(char));
+	if (!ret || !s)
+		return (0);
 	i = 0;
-	size_src = 0;
-	p2 = dst;
-	if (dstsize > 0)
+	while (s[start] && i < len)
 	{
-		while (src[i] != '\0' && size_src < dstsize - 1)
-		{
-			*p2 = src[i];
-			++p2;
-			++i;
-			++size_src;
-		}
-	}
-	*p2 = '\0';
-	while (src[i] != '\0')
-	{
-		++size_src;
+		ret[i] = s[start];
 		++i;
+		++start;
 	}
-	return (size_src);
+	ret[i] = '\0';
+	return (ret);
 }

@@ -6,22 +6,15 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:54:04 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/07 13:54:06 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:14:27 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_tolower(char *str)
-{
-	char	*aux;
+#include "libft.h"
 
-	aux = str;
-	while (*aux != '\0')
-	{
-		if (*aux >= 'A' && *aux <= 'Z')
-		{
-			*aux += 32;
-		}
-		++aux;
-	}
-	return (str);
+int	ft_tolower(int c)
+{
+	if (c >= 65 && c <= 90)
+		c += 32;
+	return (c);
 }

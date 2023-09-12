@@ -6,18 +6,13 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:06:42 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/07 14:07:49 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:13:42 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalnum(char *str)
+#include "libft.h"
+
+int	ft_isalnum(int c)
 {
-	while (*str != '\0')
-	{
-		if ((*str < 'A' || *str > 'Z') && (*str < 'a' || *str > 'z')
-			&& (*str < '0' || *str > '9'))
-			return (0);
-		++str;
-	}
-	return (1);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }
