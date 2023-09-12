@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:25:28 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 20:53:02 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:29:25 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	to_char(int n, char *ret, int i)
 static char	*ft_strrev(char *str)
 {
 	int		j;
-	int 	i;
+	int		i;
 	char	aux;
 
 	j = ft_strlen(str);

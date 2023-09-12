@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:08:42 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 20:15:20 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:32:10 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	i = 0;
 	sl = 0;
-	while (s1[i])	
+	while (s1[i])
 		ret[sl++] = s1[i++];
 	i = 0;
 	while (s2[i])

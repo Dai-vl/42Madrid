@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:15:38 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 20:19:50 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:33:11 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		i;
 	int		j;
 
-	ret = malloc((ft_strlen(s1) + 1)* sizeof(char));
+	ret = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (!ret)
 		return (0);
 	i = 0;

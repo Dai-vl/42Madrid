@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 19:03:43 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:18:53 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:32:55 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ char	*ft_strrchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			ret = (char *) (s + i);
+			ret = (char *)(s + i);
 		++i;
 	}
 	if (c == '\0')
-		return ((char *) (s + i));
+		return ((char *)(s + i));
 	return (ret);
 }
