@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:53:41 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:12:07 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:51:28 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	j = 0;
 	src_size = ft_strlen(src);
 	while (dst[j] != '\0')
-	{
 		++j;
-	}
 	if (dstsize == 0 || dstsize <= j)
 		return (src_size + dstsize);
 	dest_size = j;

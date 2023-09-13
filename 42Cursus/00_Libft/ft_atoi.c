@@ -6,20 +6,26 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:55:28 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 19:13:31 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:40:33 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	atoi(const char *str)
+static int	space(char c)
+{
+	return (c == ' ' || c == '\f' || c == '\r' || c == '\t'
+		|| c == '\v' || c == '\n');
+}
+
+int	ft_atoi(const char *str)
 {
 	int		num;
 	int		pos;
 
 	pos = 1;
 	num = 0;
-	while (*str != '\0' && *str == ' ')
+	while (*str != '\0' && space(*str))
 		++str;
 	if (*str != '\0' && (*str == '-' || *str == '+'))
 	{

@@ -6,43 +6,34 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:14:03 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 21:17:59 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:54:38 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	copy_needle(char *ret, char *aux, char *aux2)
-{
-	++aux;
-	++aux2;
-	if (*aux != *aux2 && *aux2 != '\0')
-		ret = 0;
-}
-
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	*ret;
-	char	*aux;
-	char	*aux2;
 	size_t	i;
+	size_t	j;
+	size_t	k;
 
 	i = 0;
-	ret = 0;
 	if (*needle == '\0')
-		return ((char *) haystack);
-	while (*haystack != '\0' && ret == 0 && i < len)
+		return ((char *)haystack);
+	while (i < len && haystack[i])
 	{
-		if (*haystack == *needle)
+		j = i;
+		k = 0;
+		while (needle[k] && haystack[j] && haystack[j] == needle[k]
+			&& j < len)
 		{
-			ret = (char *) haystack;
-			aux = (char *) haystack;
-			aux2 = (char *) needle;
+			++j;
+			++k;
+			if (needle[k] == '\0')
+				return ((char *) haystack + i);
 		}
-		while (*aux == *aux2 && *aux2 != '\0' && i < len)
-			copy_needle(ret, aux, aux2);
-		++haystack;
 		++i;
 	}
-	return (ret);
+	return (0);
 }

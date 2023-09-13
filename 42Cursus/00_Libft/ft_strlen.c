@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:07:59 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/12 19:14:16 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:51:55 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	num;
 
 	num = 0;
-	while (*s != '\0')
-	{
+	while (s[num])
 		++num;
-		++s;
-	}
 	return (num);
 }
