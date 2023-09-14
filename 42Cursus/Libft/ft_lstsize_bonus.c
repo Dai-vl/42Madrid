@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:35:08 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/14 18:49:02 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:41:59 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_lstsize(t_list *lst)
 
 	i = 0;
 	ptr = lst;
-	while (ptr->next)
+	while (ptr)
 	{
 		++i;
 		ptr = ptr->next;

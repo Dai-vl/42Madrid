@@ -1,15 +1,5 @@
-#include "libft.h"
+#include "Libft/libft.h"
 #include <stdio.h>
-void ft_lstprint(void *content)
-{
-	ft_putendl_fd((char *)content, 1);
-}
-
-void *ft_lstprint2(void *content)
-{
-	ft_putendl_fd((char *)content, 1);
-	return (0);
-}
 
 int main()
 {
@@ -28,12 +18,6 @@ int main()
 
 	//test ft_lstlast
 	printf("last: %s\n", (char *)ft_lstlast(list)->content);
-
-	//test ft_lstiter
-	ft_lstiter(list, &ft_lstprint);
-
-	//test ft_lstmap
-	ft_lstmap(list, &ft_lstprint2, &ft_lstprint);
 
 	return (0);
 }
