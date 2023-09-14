@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:39:50 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/14 19:39:33 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:25:11 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*ptr;
 
-	if(!lst)
+	if (!lst)
 		*lst = new;
 	else
 	{
