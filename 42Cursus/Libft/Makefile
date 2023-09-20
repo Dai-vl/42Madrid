@@ -6,7 +6,7 @@
 #    By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 21:11:33 by dvidal-l          #+#    #+#              #
-#    Updated: 2023/09/14 19:20:41 by dvidal-l         ###   ########.fr        #
+#    Updated: 2023/09/20 18:23:33 by dvidal-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ BONUS_SRC = ft_lstnew_bonus.c ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c \
 NAME = libft.a
 BASIC_OBJ = $(BASIC_SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
+BONUS_TARGET = .bonus_aux
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -37,17 +38,20 @@ all: $(NAME)
 $(NAME): $(BASIC_OBJ)
 	ar -rcs $(NAME) $(BASIC_OBJ)
 
+bonus: $(BONUS_TARGET)
+
+$(BONUS_TARGET): $(NAME) $(BONUS_OBJ) $(BASIC_OBJ)
+	ar -rcs $(NAME) $(BONUS_OBJ) $(BASIC_OBJ)
+	touch $(BONUS_TARGET)
+
 re: fclean all
 
+rebonus: fclean bonus
+
 clean:
-	rm -f $(BASIC_OBJ) $(BONUS_OBJ)
+	rm -f $(BASIC_OBJ) $(BONUS_OBJ) $(BONUS_TARGET)
 
 fclean: clean
 	rm -f $(NAME)
-
-bonus: $(BONUS_OBJ) $(BASIC_OBJ)
-	ar -rcs $(NAME) $(BASIC_OBJ) $(BONUS_OBJ)
-
-rebonus: fclean bonus
 
 .PHONY: fclean all clean re bonus rebonus
