@@ -6,7 +6,7 @@
 #    By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 21:11:33 by dvidal-l          #+#    #+#              #
-#    Updated: 2023/09/20 18:23:33 by dvidal-l         ###   ########.fr        #
+#    Updated: 2023/09/27 12:37:53 by dvidal-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(NAME): $(BASIC_OBJ)
 
 bonus: $(BONUS_TARGET)
 
-$(BONUS_TARGET): $(NAME) $(BONUS_OBJ) $(BASIC_OBJ)
+$(BONUS_TARGET): $(BONUS_OBJ) $(BASIC_OBJ)
 	ar -rcs $(NAME) $(BONUS_OBJ) $(BASIC_OBJ)
 	touch $(BONUS_TARGET)
 
@@ -49,7 +49,7 @@ re: fclean all
 rebonus: fclean bonus
 
 clean:
-	rm -f $(BASIC_OBJ) $(BONUS_OBJ) $(BONUS_TARGET)
+	rm -f $(BASIC_OBJ) $(BONUS_OBJ) $(BONUS_TARGET) 
 
 fclean: clean
 	rm -f $(NAME)
