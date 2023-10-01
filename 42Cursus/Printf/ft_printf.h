@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 20:49:40 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/20 15:48:38 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/29 17:37:55 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/10/01 16:47:04 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-void	ft_putnbr_fd(int n, int fd)
-{
-	char	aux;
+# include "libft/libft.h"
+# include <limits.h>
+# include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n = -n;
-	}
-	if (n < 10)
-	{
-		aux = n + '0';
-		write(fd, &aux, 1);
-		return ;
-	}
-	aux = n % 10 + '0';
-	ft_putnbr_fd(n / 10, fd);
-	write(fd, &aux, 1);
-}
+int	ft_printf(char const *format, ...);
+
+#endif

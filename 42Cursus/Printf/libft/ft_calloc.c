@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 17:37:55 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/29 17:56:50 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/12 19:51:59 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/10/01 14:44:55 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ret;
 
-const char	OPS = {'c', 's', 'p', 'd', 'i', 'u', 'x', 'X', '%'};
-
-int ft_printf(char const *format, ...);
-
-#endif
+	if (count == 0 || size == 0)
+		return ((void *) malloc(0));
+	if (count == SIZE_MAX || size == SIZE_MAX)
+		return (NULL);
+	ret = malloc(count * size);
+	if (ret == 0)
+		return (0);
+	ft_memset(ret, 0, count * size);
+	return (ret);
+}

@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 19:51:59 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/09/27 21:42:41 by dvidal-l         ###   ########.fr       */
+/*   Created: 2023/09/12 20:49:40 by dvidal-l          #+#    #+#             */
+/*   Updated: 2023/10/01 16:18:06 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_putnbr_fd(long long int n, int fd)
 {
-	void	*ret;
+	char	aux;
 
-	if (count == 0 || size == 0)
-		return ((void *) malloc(0));
-	if (count >= SIZE_MAX || size >= SIZE_MAX)
-		return (NULL);
-	ret = malloc(count * size);
-	if (ret == 0)
-		return (0);
-	ft_memset(ret, 0, count * size);
-	return (ret);
+	if (n == LLONG_MIN)
+	{
+		write(fd, "-9223372036854775808", 21);
+		return ;
+	}
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n = -n;
+	}
+	if (n < 10)
+	{
+		aux = n + '0';
+		write(fd, &aux, 1);
+		return ;
+	}
+	aux = n % 10 + '0';
+	ft_putnbr_fd(n / 10, fd);
+	write(fd, &aux, 1);
 }
