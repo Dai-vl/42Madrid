@@ -6,17 +6,17 @@
 #    By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/01 14:35:21 by dvidal-l          #+#    #+#              #
-#    Updated: 2023/10/01 16:52:33 by dvidal-l         ###   ########.fr        #
+#    Updated: 2023/10/01 17:39:26 by dvidal-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = ft_printf.c 
+SRC = ft_printf.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT = ./libft/libft.a
 
 NAME = libftprintf.a
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 all: $(NAME)

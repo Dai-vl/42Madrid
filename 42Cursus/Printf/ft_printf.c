@@ -6,13 +6,13 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:35:47 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/01 16:25:50 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:38:07 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_putnbr_base(unsigned long long int n, char *base)
+void	ft_putnbr_base(unsigned long long int n, char *base)
 {
 	if (n >= 16)
 	{
@@ -23,13 +23,13 @@ static void	ft_putnbr_base(unsigned long long int n, char *base)
 		ft_putchar_fd(base[n], 1);
 }
 
-static void	ft_putaddress(void *p)
+void	ft_putaddress(void *p)
 {
 	ft_putstr_fd("0x", 1);
 	ft_putnbr_base((unsigned long long int)p, "0123456789abcdef");
 }
 
-static void	apply_op(const char c, va_list args)
+void	apply_op(const char c, va_list args)
 {
 	if (c == 'c')
 		ft_putchar_fd(va_arg(args, int), 1);
@@ -51,7 +51,7 @@ static void	apply_op(const char c, va_list args)
 		ft_putchar_fd(c, 1);
 }
 
-static void	read_format(char const *format, va_list args)
+void	read_format(char const *format, va_list args)
 {
 	int	i;
 
@@ -78,4 +78,19 @@ int	ft_printf(char const *format, ...)
 	va_end(args);
 	return (0);
 }
+/*#include <stdio.h>
+int main()
+{
+	printf("%d: \n", ft_printf("Test 1:%c\n", '0') == printf("Test 1:%c\n", '0'));
+	printf("%d: \n", ft_printf("Test 2: %c \n", '0') == printf("Test 2: %c \n", '0'));
+	printf("%d: \n", ft_printf("Test 3: %c\n", '0' - 256) == printf("Test 3: %c\n", '0' - 256));
+	printf("%d: \n", ft_printf("Test 4:%c \n", '0' + 256) == printf("Test 4:%c \n", '0' + 256));
+	printf("%d: \n", ft_printf("Test 5: %c %c %c \n", '0', 0, '1') == printf("Test 5: %c %c %c \n", '0', 0, '1'));
+	printf("%d: \n", ft_printf("Test 6: %c %c %c \n", ' ', ' ', ' ') == printf("Test 6: %c %c %c \n", ' ', ' ', ' '));
+	printf("%d: \n", ft_printf("Test 7: %c %c %c \n", '1', '2', '3') == printf("Test 7: %c %c %c \n", '1', '2', '3'));
+	printf("%d: \n", ft_printf("Test 8: %c %c %c \n", '2', '1', 0) == printf("Test 8: %c %c %c \n", '2', '1', 0));
+	printf("%d: \n", ft_printf("Test 9: %c %c %c \n", 0, '1', '2') == printf("Test 9: %c %c %c \n", 0, '1', '2'));
+
+	return 0;	
+}*/
 // compile -o a.out ft_printf.c -L Libft -lft

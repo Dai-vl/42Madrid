@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:37:55 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/01 16:47:04 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:21:07 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int	ft_printf(char const *format, ...);
+int		ft_printf(char const *format, ...);
 
 #endif
