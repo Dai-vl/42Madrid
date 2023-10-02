@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amato <amato@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:37:55 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/01 17:21:07 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:31:01 by amato            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# define sp 0
+# define pl 1
+# define hs 2
 
 int		ft_printf(char const *format, ...);
 
