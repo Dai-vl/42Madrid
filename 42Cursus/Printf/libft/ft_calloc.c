@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 19:51:59 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/01 14:44:55 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:42:41 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	if (count == 0 || size == 0)
 		return ((void *) malloc(0));
-	if (count == SIZE_MAX || size == SIZE_MAX)
+	if (count >= SIZE_MAX || size >= SIZE_MAX)
 		return (NULL);
 	ret = malloc(count * size);
 	if (ret == 0)

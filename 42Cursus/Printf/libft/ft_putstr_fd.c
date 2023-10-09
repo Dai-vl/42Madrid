@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amato <amato@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:47:22 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/02 11:53:20 by amato            ###   ########.fr       */
+/*   Updated: 2023/10/09 19:50:05 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
 	i = 0;
 	while (s[i])
 	{
-		ft_putchar_fd(s[i], fd);
+		if (ft_putchar_fd(s[i], fd) == -1)
+			return (-1);
 		++i;
 	}
+	return (i);
 }
