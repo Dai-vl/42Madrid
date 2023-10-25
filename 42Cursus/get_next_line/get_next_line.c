@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:07 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/25 18:33:24 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:02:51 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ char	*get_next_line(int fd)
 	int			i;
 	int			j;
 	char		*ret;
+	int			enc;
 
 	if (fd == -1)
 		return (NULL);
@@ -164,22 +165,25 @@ char	*get_next_line(int fd)
 	ret = ft_substr(ant, 0, i);
 	read(fd, buffer, BUFFER_SIZE);
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (i < BUFFER_SIZE && buffer[i] && buffer[i] != '\n')
 		++i;
-	//PROBLEMAS FALTA CUANDO LEES MENOS DE LO QUE NECESITAS
-	ft_strlcat(ret, buffer, i);
+	ft_strlcat(ret, buffer, ft_strlen(ret) + i + 1);
+	while (buffer[i - 1] && buffer[i - 1] != '\n')
+	{
+		read(fd, buffer, BUFFER_SIZE);
+		i = 0;
+		while (i < BUFFER_SIZE && buffer[i] && buffer[i] != '\n')
+			++i;
+		ft_strlcat(ret, buffer, ft_strlen(ret) + i + 1);
+	}
 	j = 0;
 	while (ant[j] && ant[j] != '\n')
 		++j;
 	ft_memmove(&ant[0], &ant[j], ft_strlen(&ant[j]));
 	j = 0;
-	while (buffer[i] && buffer[i] != '\n')
-	{
-		ant[j++] = buffer[i];
-		buffer[i++] = '\0';
-	}
-	ft_strlcat(buffer, ret, i);
-	ft_strlcpy(ret, buffer, ft_strlen(buffer));
+	++i;
+	while (i < BUFFER_SIZE && buffer[i] && buffer[i] != '\n')
+		ant[j++] = buffer[i++];
 	return (ret);
 }
 
