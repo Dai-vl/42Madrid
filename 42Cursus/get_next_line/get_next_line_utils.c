@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dai <dai@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:05 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/25 18:21:40 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:51:24 by dai              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,42 +67,41 @@ char	*ft_strdup(const char *s1)
 	return (ret);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	src_size;
-	size_t	dest_size;
+	int	i;
 
-	j = 0;
-	src_size = ft_strlen(src);
-	while (dst[j] != '\0')
-		++j;
-	if (dstsize == 0 || dstsize <= j)
-		return (src_size + dstsize);
-	dest_size = j;
 	i = 0;
-	while (src[i] != '\0' && i < dstsize - dest_size - 1)
+	while (s[i])
 	{
-		dst[j] = src[i];
-		++j;
+		if (s[i] == (char)c)
+			return ((char *) s + i);
 		++i;
 	}
-	dst[j] = '\0';
-	return (src_size + dest_size);
+	if ((char) c == s[i])
+		return ((char *) s + i);
+	return (0);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t		i;
+	int		len;
+	int		sl;
+	int		i;
+	char	*ret;
 
+	sl = ft_strlen(s1);
+	len = sl + ft_strlen(s2);
+	ret = malloc((len + 1) * sizeof(char));
+	if (!ret)
+		return (0);
 	i = 0;
-	while (dstsize != 0 && src[i] && i < dstsize - 1)
-	{
-		dst[i] = src[i];
-		++i;
-	}
-	if (i < dstsize)
-		dst[i] = '\0';
-	return (ft_strlen(src));
+	sl = 0;
+	while (s1[i])
+		ret[sl++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		ret[sl++] = s2[i++];
+	ret[sl] = '\0';
+	return (ret);
 }

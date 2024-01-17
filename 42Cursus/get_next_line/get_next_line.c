@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dai <dai@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:07 by dvidal-l          #+#    #+#             */
-/*   Updated: 2023/10/25 19:02:51 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:14:47 by dai              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,136 +67,120 @@ char	*ft_strdup(const char *s1)
 	return (ret);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	src_size;
-	size_t	dest_size;
-
-	j = 0;
-	src_size = ft_strlen(src);
-	while (dst[j] != '\0')
-		++j;
-	if (dstsize == 0 || dstsize <= j)
-		return (src_size + dstsize);
-	dest_size = j;
-	i = 0;
-	while (src[i] != '\0' && i < dstsize - dest_size - 1)
-	{
-		dst[j] = src[i];
-		++j;
-		++i;
-	}
-	dst[j] = '\0';
-	return (src_size + dest_size);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t		i;
+	int	i;
 
 	i = 0;
-	while (dstsize != 0 && src[i] && i < dstsize - 1)
+	while (s[i])
 	{
-		dst[i] = src[i];
+		if (s[i] == (char)c)
+			return ((char *) s + i);
 		++i;
 	}
-	if (i < dstsize)
-		dst[i] = '\0';
-	return (ft_strlen(src));
+	if ((char) c == s[i])
+		return ((char *) s + i);
+	return (0);
 }
 
-//------------------------------------------------------------------------------------------------------------------------
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
-	void	*or;
+	int		len;
+	int		sl;
+	int		i;
+	char	*ret;
 
-	if (!dst && !src)
+	sl = ft_strlen(s1);
+	len = sl + ft_strlen(s2);
+	ret = malloc((len + 1) * sizeof(char));
+	if (!ret)
 		return (0);
-	or = dst;
 	i = 0;
-	while (i < n)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *) src)[i];
+	sl = 0;
+	while (s1[i])
+		ret[sl++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		ret[sl++] = s2[i++];
+	ret[sl] = '\0';
+	return (ret);
+}
+//--------------------------------------------------------------------------------------------
+
+void	prep_buffer(char *buffer)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (buffer[i] != '\n' && buffer[i])
 		++i;
+	if (buffer[i] == '\n')
+	{
+		++i;
+		while (buffer[i])
+		{
+			buffer[j++] = buffer[i];
+			buffer[i++] = '\0';
+		}
+		buffer[j] = '\0';
 	}
-	return (or);
 }
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+char	*return_line(char *buffer)
 {
-	size_t	i;
-	char	*or;
-	char	*sr;
+	int		i;
+	char	*ret;
 
-	or = (char *)dst;
-	sr = (char *)src;
-	if (or < sr)
-		ft_memcpy(or, sr, len);
-	else if (or > sr)
-	{
-		i = len;
-		while (i > 0)
-		{
-			--i;
-			or[i] = sr[i];
-		}
-	}
-	return (dst);
+	i = 0;
+	while (buffer[i] != '\n' && buffer[i])
+		++i;
+	ret = ft_substr(buffer, 0, i + 1);
+	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	ant[BUFFER_SIZE];
-	char		buffer[BUFFER_SIZE];
-	int			i;
-	int			j;
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*ret;
-	int			enc;
+	int			rd;
 
-	if (fd == -1)
-		return (NULL);
-	i = 0;
-	while (ant[i] && ant[i] != '\n')
-		++i;
-	ret = ft_substr(ant, 0, i);
-	read(fd, buffer, BUFFER_SIZE);
-	i = 0;
-	while (i < BUFFER_SIZE && buffer[i] && buffer[i] != '\n')
-		++i;
-	ft_strlcat(ret, buffer, ft_strlen(ret) + i + 1);
-	while (buffer[i - 1] && buffer[i - 1] != '\n')
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	ret = ft_strdup(buffer);
+	if (ft_strchr(buffer, '\n'))
 	{
-		read(fd, buffer, BUFFER_SIZE);
-		i = 0;
-		while (i < BUFFER_SIZE && buffer[i] && buffer[i] != '\n')
-			++i;
-		ft_strlcat(ret, buffer, ft_strlen(ret) + i + 1);
+		prep_buffer(buffer);
+		return (return_line(ret));
 	}
-	j = 0;
-	while (ant[j] && ant[j] != '\n')
-		++j;
-	ft_memmove(&ant[0], &ant[j], ft_strlen(&ant[j]));
-	j = 0;
-	++i;
-	while (i < BUFFER_SIZE && buffer[i] && buffer[i] != '\n')
-		ant[j++] = buffer[i++];
-	return (ret);
+	rd = read(fd, buffer, BUFFER_SIZE);
+	if (rd == -1 || (rd == 0 && !ret))
+		return (0);
+	while (rd > 0)
+	{
+		buffer[rd] = '\0';
+		ret = ft_strjoin(ret, buffer);
+		if (ft_strchr(buffer, '\n'))
+			break ;
+		rd = read(fd, buffer, BUFFER_SIZE);
+	}
+	prep_buffer(buffer);
+	return (return_line(ret));
 }
 
 #include <stdio.h>
-int	main(void){
 
+int	main(void)
+{
 	int fd = open("hola.txt", O_RDONLY);
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
+	char *line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
 
 	return (0);
 }
