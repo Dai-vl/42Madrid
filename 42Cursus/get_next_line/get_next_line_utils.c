@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dai <dai@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:05 by dvidal-l          #+#    #+#             */
-/*   Updated: 2024/01/17 20:51:24 by dai              ###   ########.fr       */
+/*   Updated: 2024/01/30 13:09:11 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ size_t	ft_strlen(const char *s)
 	size_t	num;
 
 	num = 0;
-	while (s[num])
+	while (s[num] && s[num] != '\n')
+		++num;
+	if (s[num] == '\n')
 		++num;
 	return (num);
 }
@@ -51,18 +53,20 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
-	while (s1[i])
+	while (s1[i] && s1[i] != '\n')
 		++i;
-	ret = malloc((i + 1) * sizeof(char));
+	ret = malloc((i + 2) * sizeof(char));
 	if (ret == 0)
 		return (0);
 	i = 0;
-	while (*s1)
+	while (*s1 && *s1 != '\n')
 	{
 		ret[i] = *s1;
 		++i;
 		++s1;
 	}
+	if (*s1 == '\n')
+		ret[i++] = '\n';
 	ret[i] = '\0';
 	return (ret);
 }
@@ -83,25 +87,27 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	int		len;
 	int		sl;
 	int		i;
 	char	*ret;
 
-	sl = ft_strlen(s1);
-	len = sl + ft_strlen(s2);
+	len = ft_strlen(s1);
+	len += ft_strlen(s2);
 	ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
-		return (0);
+		return (NULL);
 	i = 0;
 	sl = 0;
 	while (s1[i])
 		ret[sl++] = s1[i++];
 	i = 0;
-	while (s2[i])
+	while (s2[i] && s2[i] != '\n')
 		ret[sl++] = s2[i++];
+	if (s2[i] == '\n')
+		ret[sl++] = '\n';
 	ret[sl] = '\0';
-	return (ret);
+	return (free(s1), ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dai <dai@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:07 by dvidal-l          #+#    #+#             */
-/*   Updated: 2024/01/17 21:41:24 by dai              ###   ########.fr       */
+/*   Updated: 2024/01/30 13:23:11 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,53 @@ void	prep_buffer(char *buffer)
 
 	i = 0;
 	j = 0;
-	while (buffer[i] != '\n' && buffer[i])
+	while (buffer[i] && buffer[i] != '\n' )
 		++i;
 	if (buffer[i] == '\n')
-	{
 		++i;
-		while (buffer[i])
-		{
-			buffer[j++] = buffer[i];
-			buffer[i++] = '\0';
-		}
-		buffer[j] = '\0';
+	while (i < BUFFER_SIZE)
+	{
+		buffer[j++] = buffer[i];
+		buffer[i++] = '\0';
 	}
+	buffer[j] = '\0';
 }
 
-char	*return_line(char *buffer)
+char	*return_line(char *line, char *buffer, int rd)
 {
 	int		i;
+	char	*aux;
 	char	*ret;
 
+	if (rd == -1)
+	{
+		i = 0;
+		while (i < BUFFER_SIZE)
+			buffer[i++] = '\0';
+	}
+	prep_buffer(buffer);
 	i = 0;
-	while (buffer[i] != '\n' && buffer[i])
+	while (line[i] && line[i] != '\n')
 		++i;
-	ret = ft_substr(buffer, 0, i + 1);
+	aux = ft_substr(line, 0, i + 1);
+	ret = ft_strdup(aux);
+	free(line);
+	free(aux);
 	return (ret);
+}
+
+char	*read_error(int rd, char *buffer, char *ret)
+{
+	int	i;
+
+	if (rd == -1)
+	{
+		i = 0;
+		while (i < BUFFER_SIZE)
+			buffer[i++] = '\0';
+	}
+	free(ret);
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
@@ -57,15 +80,10 @@ char	*get_next_line(int fd)
 	if (!ret)
 		return (0);
 	if (ft_strchr(buffer, '\n'))
-	{
-		prep_buffer(buffer);
-		return (return_line(ret));
-	}
+		return (return_line(ret, buffer, 0));
 	rd = read(fd, buffer, BUFFER_SIZE);
-	if (rd == -1 || (!rd && !ft_strlen(ret))){
-		free(ret);
-		return (0);
-	}
+	if (rd == -1 || (!rd && !ft_strlen(ret)))
+		return (read_error(rd, buffer, ret));
 	while (rd > 0)
 	{
 		buffer[rd] = '\0';
@@ -76,110 +94,27 @@ char	*get_next_line(int fd)
 			break ;
 		rd = read(fd, buffer, BUFFER_SIZE);
 	}
-	prep_buffer(buffer);
-	return (return_line(ret));
+	return (return_line(ret, buffer, rd));
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*ret;
-	size_t	i;
-
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	ret = malloc((len + 1) * sizeof(char));
-	if (!ret || !s)
-		return (0);
-	i = 0;
-	while (s[start] && i < len)
-	{
-		ret[i] = s[start];
-		++i;
-		++start;
-	}
-	ret[i] = '\0';
-	return (ret);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	num;
-
-	num = 0;
-	while (s[num])
-		++num;
-	return (num);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*ret;
-	int		i;
-
-	i = 0;
-	while (s1[i])
-		++i;
-	ret = malloc((i + 1) * sizeof(char));
-	if (ret == 0)
-		return (0);
-	i = 0;
-	while (*s1)
-	{
-		ret[i] = *s1;
-		++i;
-		++s1;
-	}
-	ret[i] = '\0';
-	return (ret);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *) s + i);
-		++i;
-	}
-	if ((char) c == s[i])
-		return ((char *) s + i);
-	return (0);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		len;
-	int		sl;
-	int		i;
-	char	*ret;
-
-	sl = ft_strlen(s1);
-	len = sl + ft_strlen(s2);
-	ret = malloc((len + 1) * sizeof(char));
-	if (!ret)
-		return (0);
-	i = 0;
-	sl = 0;
-	while (s1[i])
-		ret[sl++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		ret[sl++] = s2[i++];
-	ret[sl] = '\0';
-	return (ret);
-}
-
+/*
 #include <stdio.h>
 
 int	main(void)
 {
 	int fd = open("hola.txt", O_RDONLY);
 	printf("%s", get_next_line(fd));
-	//printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
 	return (0);
-}
+}*/
