@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:05 by dvidal-l          #+#    #+#             */
-/*   Updated: 2024/01/30 13:09:11 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:10:21 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*ret;
 	size_t	i;
 
+	if (!s)
+		return (0);
 	if (start >= ft_strlen(s))
 		return (ft_strdup(""));
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
 	ret = malloc((len + 1) * sizeof(char));
-	if (!ret || !s)
+	if (!ret)
 		return (0);
 	i = 0;
 	while (s[start] && i < len)
@@ -53,11 +55,13 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
-	while (s1[i] && s1[i] != '\n')
+	while (s1 && s1[i] && s1[i] != '\n')
 		++i;
-	ret = malloc((i + 2) * sizeof(char));
-	if (ret == 0)
-		return (0);
+	if (s1[i] == '\n')
+		++i;
+	ret = malloc((i + 1) * sizeof(char));
+	if (!ret)
+		return (NULL);
 	i = 0;
 	while (*s1 && *s1 != '\n')
 	{
@@ -98,7 +102,10 @@ char	*ft_strjoin(char *s1, char const *s2)
 	len += ft_strlen(s2);
 	ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
+	{
+		free(s1);
 		return (NULL);
+	}
 	i = 0;
 	sl = 0;
 	while (s1[i])

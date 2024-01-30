@@ -6,7 +6,7 @@
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:07 by dvidal-l          #+#    #+#             */
-/*   Updated: 2024/01/30 13:23:11 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:12:44 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ char	*return_line(char *line, char *buffer, int rd)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 		++i;
+	if (!line)
+		return (NULL);
 	aux = ft_substr(line, 0, i + 1);
-	ret = ft_strdup(aux);
 	free(line);
+	if (!aux)
+		return (NULL);
+	ret = ft_strdup(aux);
 	free(aux);
 	return (ret);
 }
@@ -64,7 +68,8 @@ char	*read_error(int rd, char *buffer, char *ret)
 		while (i < BUFFER_SIZE)
 			buffer[i++] = '\0';
 	}
-	free(ret);
+	if (ret)
+		free(ret);
 	return (NULL);
 }
 
@@ -78,7 +83,7 @@ char	*get_next_line(int fd)
 		return (0);
 	ret = ft_strdup(buffer);
 	if (!ret)
-		return (0);
+		return (NULL);
 	if (ft_strchr(buffer, '\n'))
 		return (return_line(ret, buffer, 0));
 	rd = read(fd, buffer, BUFFER_SIZE);
@@ -89,32 +94,10 @@ char	*get_next_line(int fd)
 		buffer[rd] = '\0';
 		ret = ft_strjoin(ret, buffer);
 		if (!ret)
-			return (0);
+			return (read_error(rd, buffer, ret));
 		if (ft_strchr(buffer, '\n'))
 			break ;
 		rd = read(fd, buffer, BUFFER_SIZE);
 	}
 	return (return_line(ret, buffer, rd));
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int fd = open("hola.txt", O_RDONLY);
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	return (0);
-}*/
