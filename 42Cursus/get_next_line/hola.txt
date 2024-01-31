@@ -1,1 +1,4 @@
-0
+archivo 1 linea 1
+archivo 1 linea 2
+archivo 1 linea 3
+archivo 1 linea 4

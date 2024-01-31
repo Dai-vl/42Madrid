@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvidal-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:39:07 by dvidal-l          #+#    #+#             */
-/*   Updated: 2024/01/31 13:06:29 by dvidal-l         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:06:40 by dvidal-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	prep_buffer(char *buffer)
 {
@@ -64,29 +64,29 @@ char	*read_error(int rd, char *buffer, char *ret)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffers[MAX_FD][BUFFER_SIZE + 1];
 	char		*ret;
 	int			rd;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	ret = ft_strdup(buffer);
+	ret = ft_strdup(buffers[fd]);
 	if (!ret)
 		return (NULL);
-	if (ft_strchr(buffer, '\n'))
-		return (return_line(ret, buffer, 0));
-	rd = read(fd, buffer, BUFFER_SIZE);
+	if (ft_strchr(buffers[fd], '\n'))
+		return (return_line(ret, buffers[fd], 0));
+	rd = read(fd, buffers[fd], BUFFER_SIZE);
 	if (rd == -1 || (!rd && !ft_strlen(ret)))
-		return (read_error(rd, buffer, ret));
+		return (read_error(rd, buffers[fd], ret));
 	while (rd > 0)
 	{
-		buffer[rd] = '\0';
-		ret = ft_strjoin(ret, buffer);
+		buffers[fd][rd] = '\0';
+		ret = ft_strjoin(ret, buffers[fd]);
 		if (!ret)
-			return (read_error(rd, buffer, ret));
-		if (ft_strchr(buffer, '\n'))
+			return (read_error(rd, buffers[fd], ret));
+		if (ft_strchr(buffers[fd], '\n'))
 			break ;
-		rd = read(fd, buffer, BUFFER_SIZE);
+		rd = read(fd, buffers[fd], BUFFER_SIZE);
 	}
-	return (return_line(ret, buffer, rd));
+	return (return_line(ret, buffers[fd], rd));
 }
